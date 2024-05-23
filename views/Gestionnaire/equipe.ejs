@@ -1,0 +1,224 @@
+<div class="col py-1">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/compteGestionnaire/<%= gestId %>">Acceuil</a>
+                    </li>
+                    <li class="breadcrumb-item active">Mon equipe</li>
+                </ol>
+            </nav>
+        </div>
+
+    </div>
+</div>
+
+<div class="profile-card">
+    <div class="text-center">
+
+
+        <% if (result && result.length> 0 && result[0].logo_eq) { %>
+            <img src="/images/<%=result[0].logo_eq %>" class="img-fluid rounded-circle mb-3" alt="Profile Picture"
+                style="width: 160px; height: 180px;">
+            <% } else { %>
+                <p>No logo found</p>
+                <% } %>
+
+                    <h3>
+                        <%= result.length> 0 ? result[0].nom_eq: 'null' %>
+                    </h3>
+
+                    <p>
+                        <%= result.length> 0 ? result[0].abre_eq: 'null' %>
+                    </p>
+    </div>
+    <hr>
+    <% message_ent.forEach(element=> { %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <%= element %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% }) %>
+            <h4>Entraineur :</h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                    <tbody>
+                        <tr class="align-middle" style="font-size: 16px;">
+                            <td>
+                                <%= resu.length> 0 ? resu[0].nom_ent : 'Ajouter votre entraineur ' %>
+                            </td>
+                            <td>
+                                <%= resu.length> 0 ? resu[0].prenom_ent : '' %>
+                            </td>
+                            <td>
+                                <div style="position: relative; margin-left: 50px;">
+                                    <% if (resu.length> 0 && resu[0].img_ent) { %>
+                                        <img src="/images/<%= resu[0].img_ent %>"
+                                            class="img-fluid rounded-circle mb-3 mt-3" alt="Description of the image"
+                                            style="width: 50px; height: 50px; object-fit: cover;">
+                                        <% } else { %>
+                                            <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3"
+                                                alt="image" style="width: 50px; height: 50px; object-fit: cover;">
+                                            <% } %>
+                                </div>
+
+                            </td>
+
+
+                            <td class="text-end">
+                                <div class="d-flex flex-row justify-content-end gap-2 align-items-center">
+                                    <a href="/ajouter_entraineur/<%= gestId %>" id="add_btn" type="button"
+                                        class="btn btn-success btn-small">
+                                        <i class="bi bi-plus-circle"></i>
+                                    </a>
+                                    <a href="/voir_entraineur/<%= gestId %>" id="voir_ent_btn" type="button"
+                                        class="btn btn-primary btn-small">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="/modifier_entraineur/<%= gestId %>" id="edit_ent_btn" type="button"
+                                        class="btn btn-warning btn-small">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <br>
+            <hr>
+            <% message_stade.forEach(element=> { %>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <%= element %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <% }) %>
+                    <% message_editstade.forEach(element=> { %>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <%= element %>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                        </div>
+                        <% }) %>
+                            <h4>Stade :</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped   table-sm">
+                                    <thead>
+                                        <th>Nom</th>
+                                        <th>Ville</th>
+                                        <th>Capacité</th>
+                                        <th class="text-center">Gerer</th>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <tr class="align-middle">
+                                            <td style="font-size: 16px;">
+                                                <%= resultstd.length> 0 ? resultstd[0].nom_std : 'Ajouter votre stade '
+                                                    %>
+                                            </td>
+                                            <td style="font-size: 16px;">
+                                                <%= resultstd.length> 0 ? resultstd[0].ville_std : '' %>
+                                            </td>
+                                            <td style="font-size: 16px;">
+                                                <%= resultstd.length> 0 ? resultstd[0].capacite_std : '' %>
+                                            </td>
+
+                                            <td class="text-end">
+                                                <div class="d-flex flex-row justify-content-end gap-2">
+                                                    <a href="/stade/<%= gestId%>" id="add_btn_std" type="button"
+                                                        class="btn btn-success btn-small">
+                                                        <i class="bi bi-plus-circle"></i>
+                                                    </a>
+                                                    <a href="/voir_stade/<%= gestId %>" id="voir_std_btn" type="button"
+                                                        class="btn btn-primary btn-small">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+
+                                                    <a href="/modifier_stade/<%= gestId %>" id="edit_std_btn"
+                                                        type="button" class="btn btn-warning btn-small">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </a>
+
+
+
+                                                </div>
+                                                </t d>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            </form>
+
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var element = document.getElementById("add_btn");
+        var nomEnt = "<%= resu.length > 0 ? resu[0].nom_ent : 'null' %>";
+
+        if (nomEnt !== 'null') {
+            element.classList.add("disabled");
+            element.setAttribute("aria-disabled", "true");
+        } else {
+            element.addEventListener('click', function (event) {
+                window.location.href = "/ajouter_entraineur/<%= gestId %>";
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var element = document.getElementById("add_btn_std");
+        var nomEnt = "<%= resultstd.length > 0 ? resultstd[0].nom_std : 'null' %>";
+
+        if (nomEnt !== 'null') {
+            element.classList.add("disabled");
+            element.setAttribute("aria-disabled", "true"); // Add aria-disabled attribute
+        } else {
+            element.addEventListener('click', function (event) {
+                window.location.href = "/ajouter_stade/<%= gestId %>";
+            });
+        }
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+
+
+        var element = document.getElementById("voir_std_btn");
+        var element2 = document.getElementById("edit_std_btn");
+
+        var nomstd = "<%= resultstd.length > 0 ? resultstd[0].nom_std : 'null' %>";
+
+
+
+        if (nomstd == 'null') {
+            element.classList.add("disabled");
+            element.setAttribute("aria-disabled", "true");
+            element2.classList.add("disabled");
+            element2.setAttribute("aria-disabled", "true");
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+
+        var element = document.getElementById("voir_ent_btn");
+        var element2 = document.getElementById("edit_ent_btn");
+
+        var ent = "<%= resu.length > 0 ? resu[0].nom_ent : 'null' %>";
+        console.log(ent);
+
+
+
+        if (ent == 'null') {
+            element.classList.add("disabled");
+            element.setAttribute("aria-disabled", "true");
+            element2.classList.add("disabled");
+            element2.setAttribute("aria-disabled", "true");
+        }
+    });
+
+
+</script>

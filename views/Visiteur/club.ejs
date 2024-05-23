@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="/img/LFW-R.png">
+    <link rel="stylesheet" href="/css/club.css" />
+    <title>LFW-Relizane</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <a href="/">
+                <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            </a>
+            <a href="/">Home</a>
+            <a href="/actualite">News</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Calendrier
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/calendrier">Matchs a suivre</a></li>
+                    <li><a class="dropdown-item" href="/calendrier_precedent">Matchs precedents </a></li>
+
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Classement
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/classement">Classement</a></li>
+                    <li><a class="dropdown-item" href="/stats">Statistiques</a></li>
+
+                </ul>
+            </div>
+            <a href="/clubs">Clubs</a>
+            <a href="/login">
+                <% if (user===7 || user===120) { %>
+                    <a href="/compteGestionnaire/<%= user %>">
+                        <% if (pp[0].photo_profil) { %>
+                            <img src="/images/<%= pp[0].photo_profil %>"
+                                style="width: 32px; height: 32px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <% } %>
+                    </a>
+                    <% } else { %>
+                        <% if (user) { %>
+                            <% if (user===2) { %>
+                                <a href="/compteAdmin/2"><img src="/images/<%= pp[0].photo_profil %>"
+                                        style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                                <% } else { %>
+                                    <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
+                                            style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                                    <% } %>
+                                        <% } else { %>
+                                            <a href="/login">Se connecter</a>
+                                            <% } %>
+                                                <% } %>
+            </a>
+            <form class="search-form" action="/chercher " method="POST">
+                <input type="text" name="recherche" placeholder=" Search">
+                <button id="searchBtn" type="submit">Search</button>
+            </form>
+            <div id="search-results"></div>
+            <div class="social-icons">
+                <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                    <img src="/img/github.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://mail.google.com" target="_blank" class="social-link">
+                    <img src="/img/gmail.png" alt="Gmail" class="social-icon">
+                </a>
+            </div>
+            <span></span>
+        </nav>
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="container">
+                        <h2 style="margin-top: 10px;">Meilleurs buteurs</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Joueur</th>
+                                    <th>N° buts</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (var i=0; i < buteurs.length; i++) { %>
+                                    <tr>
+                                        <td>
+
+                                            <%= buteurs.length> 0 ? buteurs[i].nom_jo +" "+ buteurs[i].prenom_jo: 'null'
+                                                %>
+                                        </td>
+                                        <td>
+                                            <%= buteurs.length> 0 ? buteurs[i].nbr_buts_jo : 'null' %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="container">
+                        <h2>Meilleur passeurs</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Joueur</th>
+                                    <th>N° assists</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (var i=0; i < passeurs.length; i++) { %>
+                                    <tr>
+                                        <td>
+
+                                            <%= passeurs.length> 0 ? passeurs[i].nom_jo +" "+ passeurs[i].prenom_jo:
+                                                'null'
+                                                %>
+                                        </td>
+                                        <td>
+                                            <%= passeurs.length> 0 ? passeurs[i].nbr_passe_jo : 'null' %>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                    <div class="container">
+                        <h2>Classement dans la Ligue</h2>
+                        <div class="league-ranking">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Place</th>
+                                        <th>G</th>
+                                        <th>P</th>
+                                        <th>B.P</th>
+                                        <th>B.C</th>
+                                        <th>Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <%= placesenior.length> 0 ? placesenior[0].position : '' %>
+
+                                        </td>
+                                        <td>
+                                            <%= classement.length> 0 ? classement[0].m_gagner_eq : 'null' %>
+                                        </td>
+
+                                        <td>
+                                            <%= classement.length> 0 ? classement[0].m_perdu_eq : 'null' %>
+                                        </td>
+                                        <td>
+                                            <%= classement.length> 0 ? classement[0].nbr_but_p_eq : 'null' %>
+                                        </td>
+                                        <td>
+                                            <%= classement.length> 0 ? classement[0].nbr_but_c_eq : 'null' %>
+                                        </td>
+                                        <td>
+                                            <strong>
+                                                <%= classement.length> 0 ? classement[0].points_eq : 'null' %>
+                                            </strong>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="mid-container">
+
+                    <% club.forEach(function(club) { %>
+                        <div class="club-info">
+                            <img src="/img/<%= club.logo_eq %>" alt="Team Logo" class="team-logo">
+                            <h2 class="club-name">
+                                <%= club.nom_eq %>
+                            </h2>
+                            <p>
+                                <%= club.abre_eq %>
+                            </p>
+
+                        </div>
+                        <% }); %>
+
+                            <div class="club-in">
+                                <div class="coach-container">
+                                    <p class="coach-title">Entraineur :</p>
+                                    <% if (ent.length>0) { %>
+                                        <img src="/images/<%= ent[0].img_ent %>" class="coach-image " alt="coach">
+                                        <% } else { %>
+                                            <img src="/images/default.jpg" class=" coach-image " alt="coach">
+                                            <% } %>
+
+                                                <div class="coach-info">
+                                                    <h4 class="coach-name">
+                                                        <%= ent.length> 0 ? ent[0].nom_ent : 'null' %>
+                                                            <%= ent.length> 0 ? ent[0].prenom_ent : 'null' %>
+
+
+                                                    </h4>
+                                                    <p class=" coach-details">Date de naissance : <% if(ent.length>
+                                                            0) {
+
+                                                            var dateOfBirthString = ent[0].date_naiss_ent;
+
+
+                                                            var dateOfBirth = new Date(dateOfBirthString);
+
+                                                            var formattedDateOfBirth = (" 0" +
+                                                            dateOfBirth.getDate()).slice(-2)
+                                                            + "/" +
+                                                            ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/" +
+                                                            dateOfBirth.getFullYear(); %>
+                                                            <%= formattedDateOfBirth %>
+                                                                <% } else { // Output 'null' if no result is available
+                                                                    %> null
+                                                                    <% } %>
+                                                    </p>
+                                                    <p class="coach-details">Nationalité: <%= ent.length> 0 ?
+                                                            ent[0].nationalite_ent : 'null' %>
+                                                    </p>
+                                                </div>
+                                </div>
+                                <p class="player-title">Joueurs</p>
+                                <div class="player-list">
+                                    <% gardien.forEach(function(joueur) { %>
+                                        <div class="player-box goalkeeper" data-player-id="<%= joueur.id_jo %>">
+                                            <img src="/images/<%= joueur.photo_jo %>" alt="<%= joueur.nom_jo %>"
+                                                class="coach-image" style="margin-left: 50px;">
+                                            <div class="player-info">
+                                                <h4 class="player-name">
+                                                    <%= joueur.nom_jo %>
+                                                </h4>
+                                                <p class="player-position">
+                                                    <%= joueur.poste_jo %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                                <hr>
+                                <div class="player-list">
+                                    <% millieu.forEach(function(joueur) { %>
+                                        <div class="player-box goalkeeper" data-player-id="<%= joueur.id_jo %>">
+                                            <img src="/images/<%= joueur.photo_jo %>" alt="<%= joueur.nom_jo %>"
+                                                class="coach-image" style="margin-left: 50px;">
+                                            <div class="player-info">
+                                                <h4 class="player-name">
+                                                    <%= joueur.nom_jo %>
+                                                </h4>
+                                                <p class="player-position">
+                                                    <%= joueur.poste_jo %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                                <hr>
+                                <div class="player-list">
+                                    <% attaquant.forEach(function(joueur) { %>
+                                        <div class="player-box goalkeeper" data-player-id="<%= joueur.id_jo %>">
+                                            <img src="/images/<%= joueur.photo_jo %>" alt="<%= joueur.nom_jo %>"
+                                                class="coach-image" style="margin-left: 50px;">
+                                            <div class="player-info">
+                                                <h4 class="player-name">
+                                                    <%= joueur.nom_jo %>
+                                                </h4>
+                                                <p class="player-position">
+                                                    <%= joueur.poste_jo %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                            </div>
+                </div>
+                <div class="col-lg-3">
+
+                    <div class="container">
+
+                        <h2>Matchs a suivre </h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Match</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+
+                                    <% logo.forEach(function(logoArray) { %>
+                                        <td>
+                                            <% logoArray.forEach(function(logoItem) { %>
+                                                <img src="/img/<%= logoItem.logo_eq %>" alt="Logo" width="32"
+                                                    height="32">
+                                                <% }); %>
+                                        </td>
+                                        <% }); %>
+
+                                            <% prochmatch.forEach(function(item) { %>
+                                                <td>
+                                                    <% if(item.date_ma) { %>
+                                                        <% var dateOfBirth=new Date(item.date_ma); %>
+                                                            <% var formattedDateOfBirth=("0" +
+                                                                dateOfBirth.getDate()).slice(-2) + "/" + ("0" +
+                                                                (dateOfBirth.getMonth() + 1)).slice(-2) + "/" +
+                                                                dateOfBirth.getFullYear(); %>
+                                                                <%= formattedDateOfBirth %>
+                                                                    <% } else { %>
+                                                                        null
+                                                                        <% } %>
+                                                </td>
+                                                <% }); %>
+
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <h2 style="color: #007bff;">Stade du club </h2>
+                    <div class="stadium-info">
+
+                        <div class="stadium-header">
+                            <img src="/img/stade.jpg" alt="Stadium Logo" class="stadium-logo">
+                            <h3 class="stadium-name">
+                                <%= std.length> 0 ? std[0].nom_std : 'null' %>
+                            </h3>
+                        </div>
+                        <div class="stadium-details">
+                            <p><strong>Capacité:</strong>
+                                <%= std.length> 0 ? std[0].capacite_std : 'null' %>
+                            </p>
+                            <p><strong>Adresse:</strong>
+                                <%= std.length> 0 ? std[0].ville_std : 'null' %>,
+                                    <%= std.length> 0 ? std[0].adresse_std : 'null' %>
+                            </p>
+                            <p><strong>Date de creation :</strong>
+                                <% if(ent.length> 0) {
+                                    var dateOfBirthString = std[0].date_crt;
+                                    var dateOfBirth = new Date(dateOfBirthString);
+                                    var formattedDateOfBirth = (" 0" +
+                                    dateOfBirth.getDate()).slice(-2)
+                                    + "/" +
+                                    ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/" +
+                                    dateOfBirth.getFullYear(); %>
+                                    <%= formattedDateOfBirth %>
+                                        <% } else { // Output 'null' if no result is available %> null
+                                            <% } %>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <h2 style="color: #007bff;">Réseaux Sociaux</h2>
+                    <div class="social-media">
+                        <div class="social-media-item">
+                            <a href="https://twitter.com/club_twitter" target="_blank">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8GZpWuNqm9hU06O0Mq2P0GHsR0BoCtLHz49Sn-GYzMw&s"
+                                    alt="Twitter" class="social-media-logo">
+                            </a>
+                        </div>
+                        <div class="social-media-item">
+                            <a href="https://www.facebook.com/club_facebook" target="_blank">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/900px-Facebook_f_logo_%282019%29.svg.png"
+                                    alt="Facebook" class="social-media-logo">
+                            </a>
+                        </div>
+                        <div class="social-media-item">
+                            <a href="https://www.instagram.com/club_instagram" target="_blank">
+                                <img src="https://as1.ftcdn.net/v2/jpg/03/13/76/04/1000_F_313760421_txS6xrTba0qWshvmassQbCXbSlBpW5lG.jpg"
+                                    alt="Instagram" class="social-media-logo">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        // Get all player boxes
+        const playerBoxes = document.querySelectorAll('.player-box');
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var playerBoxes = document.querySelectorAll('.player-box');
+            playerBoxes.forEach(function (box) {
+                box.addEventListener('click', handlePlayerClick);
+            });
+
+            function handlePlayerClick(event) {
+
+                var playerId = this.dataset.playerId;
+
+                window.location.href = "/joueur/" + playerId;
+            }
+        });
+
+        playerBoxes.forEach(box => {
+            box.addEventListener('click', handlePlayerClick);
+        });
+    </script>
+</body>
+
+</html>

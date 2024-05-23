@@ -1,0 +1,101 @@
+<div class="d-flex justify-content-between flex-wrap flex-md nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">
+    <%= match[0].equipe_1 + " vs " + match[0].equipe_2%>
+  </h1>
+</div>
+
+<div class="col py-3">
+  <div class="row">
+    <div class="col">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+          <li class="breadcrumb-item active">
+            <%= match[0].equipe_1 + " vs " + match[0].equipe_2 %>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<ul class="list-group">
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Equipe 1:</b></div>
+      <div class="col">
+        <%= match[0].equipe_1 %>
+
+      </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Equipe 2:</b></div>
+      <div class="col">
+        <%= match[0].equipe_2 %>
+
+      </div>
+    </div>
+  </li>
+
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px">
+        <b>Gestionnaire du match:</b>
+      </div>
+      <div class="col">
+        <%= gest.length> 0 ? gest[0].nom : 'null' %>
+          <%= gest.length> 0 ? gest[0].prenom : 'null' %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Stade du match:</b></div>
+      <div class="col">
+        <%= stade.length> 0 ? stade[0].nom_std : 'null' %>
+          <%= stade.length> 0 ? stade[0].ville_std : 'null' %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Arbitre:</b></div>
+      <div class="col">
+        <%= arbitre.length> 0 ? arbitre[0].nom_ar : 'null' %>
+          <%= arbitre.length> 0 ? arbitre[0].prenom_ar : 'null' %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Date du match:</b></div>
+      <div class="col">
+        <% if(match.length> 0) { %> <% var dateOfMatchString=match[0].date_ma; %>
+            <% var dateOfMatch=new Date(dateOfMatchString); %>
+              <% var formattedDateOfMatch=("0" + dateOfMatch.getDate()).slice(-2) + "/" + ("0" + (dateOfMatch.getMonth()
+                + 1)).slice(-2) + "/" + dateOfMatch.getFullYear(); %>
+                <%= formattedDateOfMatch %>
+                  <% } else { %>
+                    null <% } %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Horaire du match:</b></div>
+      <div class="col">
+        <% let timeString=match[0].horaire_ma; let formattedTime=timeString.substring(0, 5); %>
+          <%= formattedTime %>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="row">
+      <div class="col" style="max-width: 140px"><b>Journée du match:</b></div>
+      <div class="col">
+        <%= match[0].journee_ma%>
+      </div>
+    </div>
+  </li>
+</ul>

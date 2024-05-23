@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="icon" type="image/png" href="LFW-R.png">
+    <link rel="stylesheet" href="/css/classement.css" />
+    <title>LFW-Relizane</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <a href="/">
+                <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            </a>
+            <a href="/">Home</a>
+            <a href="/actualite">News</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Calendrier
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/calendrier">Matchs a suivre</a></li>
+                    <li><a class="dropdown-item" href="/calendrier_precedent">Matchs precedents </a></li>
+
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Classement
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/classement">Classement</a></li>
+                    <li><a class="dropdown-item" href="/stats">Statistiques</a></li>
+
+                </ul>
+            </div>
+            <a href="/clubs">Clubs</a>
+            <a href="/login">
+                <% if (user===7 || user===120) { %>
+                    <a href="/compteGestionnaire/<%= user %>">
+                        <% if (pp[0].photo_profil) { %>
+                            <img src="/images/<%= pp[0].photo_profil %>"
+                                style="width: 32px; height: 32px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <% } %>
+                    </a>
+                    <% } else { %>
+                        <% if (user) { %>
+                            <% if (user===2) { %>
+                                <a href="/compteAdmin/2"><img src="/images/<%= pp[0].photo_profil %>"
+                                        style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                                <% } else { %>
+                                    <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
+                                            style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                                    <% } %>
+                                        <% } else { %>
+                                            <a href="/login">Se connecter</a>
+                                            <% } %>
+                                                <% } %>
+            </a>
+            <form class="search-form" action="/chercher " method="POST">
+                <input type="text" name="recherche" placeholder=" Search">
+                <button id="searchBtn" type="submit">Search</button>
+            </form>
+            <div id="search-results"></div>
+            <div class="social-icons">
+                <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                    <img src="/img/github.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://mail.google.com" target="_blank" class="social-link">
+                    <img src="/img/gmail.png" alt="Gmail" class="social-icon">
+                </a>
+            </div>
+            <span></span>
+        </nav>
+        <div class="classement-container">
+            <div class="classement-buttons">
+                <button id="seniorBtn">Classement Senior</button>
+                <button id="junior19Btn">Classement Junior u-19</button>
+                <button id="junior17Btn">Classement Junior u-17</button>
+                <button id="junior15Btn">Classement Junior u-15</button>
+                <div class="dropdown">
+                    <ul class="dropdown-menu" aria-labelledby="juniorDropdown">
+                        <li><a class="dropdown-item" href="#" data-division="under19">Under 19</a></li>
+                        <li><a class="dropdown-item" href="#" data-division="under17">Under 17</a></li>
+                        <li><a class="dropdown-item" href="#" data-division="under15">Under 15</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="classement-table" id="seniorTable">
+                <h3>Classement junior u15</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Club</th>
+                            <th>MJ</th>
+                            <th>G</th>
+                            <th>N</th>
+                            <th>P</th>
+                            <th>BP</th>
+                            <th>BC</th>
+                            <th>Pts</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i=0; i < classement.length && i < 12; i++) { %>
+                            <tr>
+                                <td>
+                                    <%= i + 1 %>
+                                </td>
+
+                                <td>
+                                    <img src="/img/<%= classement[i].logo_eq %>" alt="" class="" width="32" height="32">
+                                    <%= classement[i].nom_eq %>
+                                </td>
+                                <td>
+                                    <%= classement[i].m_gagner_eq + classement[i].m_perdu_eq %>
+                                </td>
+                                <td>
+                                    <%= classement[i].m_gagner_eq %>
+                                </td>
+                                <td>
+                                    <%= classement[i].m_nul_eq %>
+                                </td>
+
+                                <td>
+                                    <%= classement[i].m_perdu_eq %>
+                                </td>
+                                <td>
+                                    <%= classement[i].nbr_but_p_eq %>
+                                </td>
+                                <td>
+                                    <%= classement[i].nbr_but_c_eq %>
+                                </td>
+                                <td> <strong>
+                                        <%= classement[i].points_eq %>
+                                    </strong></td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+
+        window.addEventListener('load', function () {
+            document.getElementById('seniorTable').style.display = 'block';
+            $(document).ready(function () {
+
+                $("#junior17Btn").click(function () {
+
+                    window.location.href = "/classement_u17";
+                });
+            });
+            $(document).ready(function () {
+
+                $("#seniorBtn").click(function () {
+
+                    window.location.href = "/classement";
+                });
+            });
+            $(document).ready(function () {
+
+                $("#junior19Btn").click(function () {
+
+                    window.location.href = "/classement_u19";
+                });
+            });
+        });
+    </script>
+</body>

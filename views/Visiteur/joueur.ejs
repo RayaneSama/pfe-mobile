@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="LFW-R.png">
+    <link rel="stylesheet" href="/css/joueur.css" />
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <a href="/">
+                <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            </a>
+
+            <a href="/">Home</a>
+            <a href="/actualite">News</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Calendrier
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/calendrier">Matchs a suivre</a></li>
+                    <li><a class="dropdown-item" href="/calendrier_precedent">Matchs precedents </a></li>
+
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Classement
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/classement">Classement</a></li>
+                    <li><a class="dropdown-item" href="/stats">Statistiques</a></li>
+
+                </ul>
+            </div>
+            <a href="/clubs">Clubs</a>
+            <a href="/login">
+                <% if (user===7 || user===120) { %>
+                    <a href="/compteGestionnaire/<%= user %>">
+                        <% if (pp[0].photo_profil) { %>
+                            <img src="/images/<%= pp[0].photo_profil %>"
+                                style="width: 32px; height: 32px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <% } %>
+                    </a>
+                    <% } else { %>
+                        <% if (user) { %>
+                            <% if (user===2) { %>
+                                <a href="/compteAdmin/2"><img src="/images/<%= pp[0].photo_profil %>"
+                                        style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                                <% } else { %>
+                                    <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
+                                            style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                                    <% } %>
+                                        <% } else { %>
+                                            <a href="/login">Se connecter</a>
+                                            <% } %>
+                                                <% } %>
+            </a>
+            <form class="search-form" action="/chercher " method="POST">
+                <input type="text" name="recherche" placeholder=" Search">
+                <button id="searchBtn" type="submit">Search</button>
+            </form>
+            <div id="search-results"></div>
+            <div class="social-icons">
+                <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                    <img src="/img/github.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://mail.google.com" target="_blank" class="social-link">
+                    <img src="/img/gmail.png" alt="Gmail" class="social-icon">
+                </a>
+            </div>
+            <span></span>
+        </nav>
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-lg-3" ">
+                    <div class=" container"style="margin-left:-30px;">
+                    <h1>Statistiques</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>N°buts</th>
+                                <th>N°passes</th>
+                                <th>C.jaune</th>
+                                <th>C.rouge</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <% if (joueur.length> 0) { %>
+                                        <%= joueur[0].nbr_buts_jo %>
+                                            <% } else { %>
+                                                <p>null</p>
+                                                <% } %>
+                                </td>
+                                <td>
+                                    <% if (joueur.length> 0) { %>
+                                        <%= joueur[0].nbr_passe_jo %>
+                                            <% } else { %>
+                                                <p>null</p>
+                                                <% } %>
+                                </td>
+                                <td>
+                                    <% if (joueur.length> 0) { %>
+                                        <%= joueur[0].nbr_crt_jaune %>
+                                            <% } else { %>
+                                                <p>null</p>
+                                                <% } %>
+                                </td>
+                                <td>
+                                    <% if (joueur.length> 0) { %>
+                                        <%= joueur[0].nbr_crt_rouge %>
+                                            <% } else { %>
+                                                <p>null</p>
+                                                <% } %>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-lg-6 mid-container">
+                <div class="container">
+
+                    <% if (joueur && joueur.length> 0 && joueur[0].photo_jo) { %>
+                        <img src="/images/<%= joueur[0].photo_jo %>" class="img-fluid rounded-circle mt-5"
+                            alt="Description of the image"
+                            style="width: 128px; height: 128px; border-radius: 50%; margin-left: 220px">
+                        <% } else { %>
+                            <img src="/images/default.jpg" class="img-fluid rounded-circle mb-3 mt-3" alt="image"
+                                style="width: 150px; height: 150px; border-radius: 50%;">
+                            <% } %>
+
+
+
+                                <h2 class="player-name">
+                                    <% if (joueur.length> 0) { %>
+
+                                        <%= joueur[0].nom_jo + " " + joueur[0].prenom_jo %>
+
+                                            <% } else { %>
+                                                <p>null</p>
+                                                <% } %>
+                                </h2>
+
+
+
+                </div>
+                <div class=" player-info-container">
+                    <h3> Informations</h3>
+                    <div class="player-info-item">
+                        <span class="player-info-label">Nationalité : </span>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Flag_of_Algeria.svg/1200px-Flag_of_Algeria.svg.png"
+                            alt="Flag" class="flag-icon">
+                        <span class="player-info-value">
+                            <% if (joueur.length> 0) { %>
+                                <%= joueur[0].nationalite_jo %>
+                                    <% } else { %>
+                                        <p>null</p>
+                                        <% } %>
+
+                        </span>
+                    </div>
+                    <div class="player-info-item">
+                        <span class="player-info-label">Poste :</span>
+                        <span class="player-info-value">
+                            <% if (joueur.length> 0) { %>
+                                <%= joueur[0].poste_jo %>
+                                    <% } else { %>
+                                        <p>null</p>
+                                        <% } %>
+                        </span>
+                    </div>
+                    <div class="player-info-item">
+                        <span class="player-info-label">Numéro :</span>
+                        <span class="player-info-value">
+                            <% if (joueur.length> 0) { %>
+                                <%= joueur[0].num_mai_jo %>
+                                    <% } else { %>
+                                        <p>null</p>
+                                        <% } %>
+                        </span>
+                    </div>
+                    <div class="player-info-item">
+                        <span class="player-info-label">Age :</span>
+                        <span class="player-info-value">
+                            <% if (joueur && joueur.length> 0 && joueur[0].date_naiss_jo) { %>
+                                <% var dateOfBirthString=joueur[0].date_naiss_jo; %>
+                                    <% var dateOfBirth=new Date(dateOfBirthString); %>
+                                        <% var today=new Date(); %>
+                                            <% var age=today.getFullYear() - dateOfBirth.getFullYear(); %>
+                                                <% var monthDiff=today.getMonth() - dateOfBirth.getMonth(); %>
+                                                    <% if (monthDiff < 0 || (monthDiff===0 && today.getDate() <
+                                                        dateOfBirth.getDate())) { %>
+                                                        <% age--; %>
+                                                            <% } %>
+                                                                <%= age %>
+                                                                    <% } else { %>
+                                                                        null
+                                                                        <% } %> ans
+                        </span>
+
+
+                    </div>
+                    <div class="player-info-item">
+                        <span class="player-info-label" style="width: 150px;">Date de naissance :</span>
+                        <span class="player-info-value">
+                            <% if(joueur.length> 0) {
+
+                                var dateOfBirthString = joueur[0].date_naiss_jo;
+
+
+                                var dateOfBirth = new Date(dateOfBirthString);
+
+                                var formattedDateOfBirth = (" 0" +
+                                dateOfBirth.getDate()).slice(-2)
+                                + "/" +
+                                ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/" +
+                                dateOfBirth.getFullYear(); %>
+                                <%= formattedDateOfBirth %>
+                                    <% } else { // Output 'null' if no result is available %> null
+                                        <% } %>
+                        </span>
+                    </div>
+                    <div class="player-info-item">
+                        <span class="player-info-label">Taille:</span>
+                        <span class="player-info-value">
+                            <% if (joueur.length> 0) { %>
+                                <%= joueur[0].taille_jo %>
+                                    <% } else { %>
+                                        <p>null</p>
+                                        <% } %> cm
+                        </span>
+                    </div>
+                    <div class="player-info-item">
+                        <span class="player-info-label">Poids:</span>
+                        <span class="player-info-value">
+                            <% if (joueur.length> 0) { %>
+                                <%= joueur[0].poids_jo %>
+                                    <% } else { %>
+                                        <p>null</p>
+                                        <% } %> kg
+                        </span>
+                    </div>
+                    <div class="player-info-item">
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="container">
+                    <h4>Social Media</h4>
+                    <div class="social-media">
+                        <div class="social-media-item">
+                            <a href="https://twitter.com/club_twitter" target="_blank">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8GZpWuNqm9hU06O0Mq2P0GHsR0BoCtLHz49Sn-GYzMw&s"
+                                    alt="Twitter" class="social-media-logo">
+                            </a>
+                        </div>
+                        <div class="social-media-item">
+                            <a href="https://www.facebook.com/club_facebook" target="_blank">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/900px-Facebook_f_logo_%282019%29.svg.png"
+                                    alt="Facebook" class="social-media-logo">
+                            </a>
+                        </div>
+                        <div class="social-media-item">
+                            <a href="https://www.instagram.com/club_instagram" target="_blank">
+                                <img src="https://as1.ftcdn.net/v2/jpg/03/13/76/04/1000_F_313760421_txS6xrTba0qWshvmassQbCXbSlBpW5lG.jpg"
+                                    alt="Instagram" class="social-media-logo">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

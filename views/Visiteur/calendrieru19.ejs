@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="LFW-R.png">
+    <link rel="stylesheet" href="css/calendrier.css" />
+    <title>LFW-Relizane</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav>
+            <a href="/">
+                <img src="/img/LFW-R.png" alt="Logo" class="logo">
+            </a>
+            <a href="/">Home</a>
+            <a href="/actualite">News</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Calendrier
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/calendrier">Matchs a suivre</a></li>
+                    <li><a class="dropdown-item" href="/calendrier_precedent">Matchs precedents </a></li>
+
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false" style="background-color: transparent; border: none; font-weight: 600;">
+                    Classement
+                </button>
+
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/classement">Classement</a></li>
+                    <li><a class="dropdown-item" href="/stats">Statistiques</a></li>
+
+                </ul>
+            </div>
+            <a href="/clubs">Clubs</a>
+            <a href="/login">
+                <% if (user===7 || user===120) { %>
+                    <a href="/compteGestionnaire/<%= user %>">
+                        <% if (pp[0].photo_profil) { %>
+                            <img src="/images/<%= pp[0].photo_profil %>"
+                                style="width: 32px; height: 32px; border-radius: 50%;">
+                            <% } else { %>
+                                <img src="/images/default.jpg" style="width: 32px; height: 32px; border-radius: 50%;">
+                                <% } %>
+                    </a>
+                    <% } else { %>
+                        <% if (user) { %>
+                            <% if (user===2) { %>
+                                <a href="/compteAdmin/2"><img src="/images/<%= pp[0].photo_profil %>"
+                                        style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                                <% } else { %>
+                                    <a href="/profil"><img src="/images/<%= pp[0].photo_profil %>"
+                                            style="width: 32px; height: 32px; border-radius: 50%;"></a>
+                                    <% } %>
+                                        <% } else { %>
+                                            <a href="/login">Se connecter</a>
+                                            <% } %>
+                                                <% } %>
+            </a>
+            <form class="search-form" action="/chercher " method="POST">
+                <input type="text" name="recherche" placeholder=" Search">
+                <button id="searchBtn" type="submit">Search</button>
+            </form>
+            <div id="search-results"></div>
+            <div class="social-icons">
+                <a href="https://github.com/Muzanvillain" target="_blank" class="social-link">
+                    <img src="/img/github.png" alt="Facebook" class="social-icon">
+                </a>
+                <a href="https://mail.google.com" target="_blank" class="social-link">
+                    <img src="/img/gmail.png" alt="Gmail" class="social-icon">
+                </a>
+            </div>
+            <span></span>
+        </nav>
+        <div class="calendrier-container" id="calendrierContainer">
+
+            <div class="division-buttons">
+                <button class="btn btn-primary" id="senior">Senior</button>
+                <button class="btn btn-primary" id="u19">Under 19</button>
+                <button class="btn btn-primary" id="u17">Under 17</button>
+                <button class="btn btn-primary" id="u15">Under 15</button>
+            </div>
+
+            <div id="seniorDivision">
+                <div class="match-box">
+
+                    <div class="match-details">
+
+                        <div class="d-flex align-items-center">
+
+                            <img src="/img/<%= match[0].logo_eq_1 %> " alt="Team Logo" class="team-logo-left">
+                            <p class="team-name-left card-text">
+                                <%= match[0].equipe_1 %>
+                            </p>
+                        </div>
+                        <div class="score-area">
+                            <p class="score card-text">
+                                <%= match[0].score_eq1 %>-<%= match[0].score_eq2 %>
+                            </p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <img src="/img/<%= match[0].logo_eq_2 %>" alt="Team Logo" class="team-logo-right">
+                            <p class="team-name-right card-text">
+                                <%= match[0].equipe_2 %>
+                            </p>
+                        </div>
+                        <p class="card-text">Journee: <%= match[0].journee_ma %>
+                        </p>
+                        <p class="card-text">Date:<% if(match.length> 0) {
+                                var dateOfBirthString = match[0].date_ma;
+                                var dateOfBirth = new Date(dateOfBirthString);
+                                var formattedDateOfBirth = ("0" + dateOfBirth.getDate()).slice(-2) + "/"
+                                + ("0" + (dateOfBirth.getMonth() + 1)).slice(-2) + "/"
+                                + dateOfBirth.getFullYear();
+                                %> <%= formattedDateOfBirth %>
+                                    <% } else { e %> null <% } %>
+                        </p>
+                        <p class="card-text">Time: <%= match[0].horaire_ma.split(':').slice(0, 2).join(':') %>
+                        </p>
+                        <p class="card-text">Location: <%= match[0].nom_std %>
+                        </p>
+                        <a href="/match/<%= match[0].id_ma %>" class="btn btn-primary">View Details</a>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('seniorDivision').style.display = 'block';
+        });
+        $(document).ready(function () {
+
+            $("#senior").click(function () {
+
+                window.location.href = "/calendrier";
+            });
+        });
+        $(document).ready(function () {
+
+            $("#u17").click(function () {
+
+                window.location.href = "/calendrier_u17";
+            });
+        });
+        $(document).ready(function () {
+
+            $("#u15").click(function () {
+
+                window.location.href = "/calendrier_u15";
+            });
+        });
+    </script>
+</body>
+
+</html>

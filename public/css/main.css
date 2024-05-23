@@ -1,0 +1,479 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+body {
+    font-size: .875rem;
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+
+}
+
+body.dark-mode {
+    background-color: #222831;
+    color: #fff;
+}
+
+.feather {
+    width: 16px;
+    height: 16px;
+}
+
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 48px 0 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 250px; 
+
+
+
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        top: 3rem;
+    }
+}
+
+.sidebar-sticky {
+    height: calc(100vh - 48px);
+    overflow-x: hidden;
+    overflow-y: hidden;
+    
+
+
+}
+
+
+.sidebar .nav-link {
+    font-weight: 500;
+    color: #000;
+    font-size: 16px;
+
+}
+
+
+.dark-mode .sidebar .nav-link {
+    font-weight: 500;
+    color: #ffffff;
+    font-size: 16px;
+
+}
+
+
+
+.move-down {
+    margin-top: 160px; /* Adjust the value as needed to move it further down */
+}
+
+
+
+
+.sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #3013c0;
+}
+
+.sidebar .nav-link.active {
+    color: #3013c0;
+
+}
+
+
+.dark-mode .sidebar .nav-link.active {
+    color: #fff;
+
+}
+
+
+.sidebar .nav-link:hover .feather,
+.sidebar .nav-link.active .feather {
+    color: #3013c0;
+}
+
+
+
+.dark-mode .sidebar .nav-link.active {
+    color: #da3e52;
+
+}
+
+/*
+   * Navbar
+   */
+
+.navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+}
+
+
+
+.navbar .form-control {
+    padding: .60rem;
+
+}
+
+.navbar .form-control::placeholder {
+
+    color: #d1d2e1;
+    opacity: 1;
+
+}
+
+.form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+
+
+
+
+
+
+.sidebar .nav-item:hover :not(.sidebar .nav-linkdeco):not(a.sidebar .nav-linkdeco) {
+    background-color: #1d9840 !important;
+
+}
+
+
+
+
+
+
+.nav-link:hover {
+    color: #fff;
+
+}
+
+
+
+.search-container {
+    position: relative;
+    cursor: pointer;
+
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: 200px;
+
+
+
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 450px;
+    pointer-events: none;
+
+}
+
+.form-control {
+
+    border-radius: 50px;
+
+}
+
+
+
+
+.alert {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+
+.alert.hide {
+    opacity: 0;
+}
+
+
+.alert.hide.delay {
+    transition-delay: 1s;
+
+}
+
+
+.alert+.alert {
+    margin-top: 10px;
+}
+
+.profile-card {
+
+    margin-left: 240px;
+    width: 50%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+
+h3 {
+    color: #16659E
+}
+
+
+
+h5 {
+    font-weight: bold;
+}
+
+.breadcrumb .breadcrumb-item.active {
+    font-weight: 500;
+    color: #000000;
+    /* Active item color */
+}
+
+.dark-mode .breadcrumb {
+    background-color: #d03819;
+
+}
+
+.breadcrumb>li+li::before {
+    color: #000000 !important;
+}
+
+
+
+
+.breadcrumb .breadcrumb-item a {
+    color: #007bff;
+
+}
+
+
+
+
+
+
+
+
+
+.table-striped tbody tr:nth-child(odd) td {
+    background-color: #f8f9fa;
+
+    font-weight: 400;
+
+}
+
+
+.dark-mode .table-striped tbody tr:nth-child(odd) td {
+    background-color: #222831;
+
+}
+
+
+h4 {
+    color: #000;
+    /* Black color */
+}
+
+/* Dark mode styles */
+.dark-mode h4 {
+    color: #16659E
+        /* White color */
+}
+
+
+/* Light mode styles */
+.navbar {
+    background: linear-gradient(to right, #1c1876, #085015);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+
+}
+
+.dark-mode .navbar .navbar-nav .nav-link {
+    color: #ffffff;
+
+}
+
+
+.dark-mode .navbar .navbar-nav .nav-link:hover {
+    color: #e0e0e0;
+
+}
+
+
+
+
+/* Dark mode navbar brand styles */
+.dark-mode .navbar .navbar-brand {
+    color: #ffffff;
+    /* White text color for brand */
+}
+
+/* Dark mode navbar brand hover styles */
+.dark-mode .navbar .navbar-brand:hover {
+    color: #e0e0e0;
+    /* Lighter text color on hover */
+}
+
+/* Dark mode styles */
+.dark-mode .navbar {
+    background-color: rgba(4, 4, 4, 0.8);
+    /* Dark mode background color */
+}
+
+/* Dark mode form control placeholder color */
+.dark-mode .navbar .form-control::placeholder {
+    color: #b0b0b0;
+    /* Light gray placeholder text */
+}
+
+/* Light mode styles */
+.table-striped thead th {
+    background-color: #f8f9fa;
+    /* Light mode background color */
+    color: #000;
+    /* Light mode text color */
+}
+
+/* Dark mode styles */
+.dark-mode .table-striped thead th {
+    background-color: #222831;
+    /* Dark mode background color */
+    color: #fff;
+    /* Dark mode text color */
+}
+
+/* Light mode styles */
+.table td {
+
+    color: #000;
+    padding: 10px;
+    text-align: center;
+    /* Light mode text color */
+}
+
+/* Dark mode styles */
+.dark-mode .table td {
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    /* Dark mode text color */
+}
+
+/* Light mode styles */
+.list-group-item {
+    background-color: #f8f9fa;
+    /* Light mode background color */
+    color: #000;
+    /* Light mode text color */
+}
+
+/* Dark mode styles */
+.dark-mode .list-group-item {
+    background-color: #222831;
+    /* Dark mode background color */
+    color: #fff;
+    /* Dark mode text color */
+}
+
+/* Light mode styles */
+.dropdown-menu {
+    background-color: #fff;
+    /* Light mode background color */
+    color: #000;
+    /* Light mode text color */
+}
+
+/* Dark mode styles */
+.dark-mode .dropdown-menu {
+    background-color: #222831;
+    /* Dark mode background color */
+    color: #00db54;
+    /* Dark mode text color */
+}
+
+.dark-mode .dropdown-menu,
+.dark-mode .dropdown-menu a.dropdown-item {
+    color: #fff;
+    /* Set text color to white */
+}
+
+.dark-mode .form-check-label {
+    color: #fff;
+    /* Set text color to white for the switch label */
+}
+
+/* Light mode hover color */
+.dropdown-menu li:hover {
+    background-color: #0da44f;
+    /* Red */
+}
+
+/* Dark mode hover color */
+.dark-mode .dropdown-menu li:hover {
+    background-color: #0da44f;
+    /* Red */
+}
+
+/* Light mode hover color for list items with links */
+.dropdown-menu li:hover a.dropdown-item {
+    background-color: #0da44f;
+    /* Red */
+    color: #fff;
+    /* White text color */
+}
+
+/* Dark mode hover color for list items with links */
+.dark-mode .dropdown-menu li:hover a.dropdown-item {
+    background-color: #41784c;
+    /* Red */
+    color: #fff;
+    /* White text color */
+}
+
+.dark-mode .modal-header .modal-title,
+.dark-mode .modal-body p {
+    color: #ffffff;
+    /* White text color */
+}
+
+.dark-mode .modal-content {
+    background-color: #000;
+    /* Black background color */
+}
+
+.dark-mode .col .breadcrumb {
+    background-color: #20212a;
+    /* Black background color */
+}
+
+.breadcrumb-item a {
+    text-decoration: none;
+    /* Remove underline */
+}
+
+.profile-picture {
+    width: 32px;
+    /* Adjust the width as needed */
+    height: 32px;
+    /* Adjust the height as needed */
+    overflow: hidden;
+    border-radius: 50%;
+    /* Make it a circle */
+    border: 2px solid #ffffff;
+    /* Add a border for better contrast */
+}
+
+.profile-picture:hover {
+    border-color: #ccc;
+    /* Change border color on hover */
+}
+
+
+.deconncter .nav-link {
+    color: rgb(255, 0, 0);
+    /* Change the color to your desired color */
+}

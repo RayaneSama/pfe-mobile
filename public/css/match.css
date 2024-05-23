@@ -1,0 +1,230 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+
+body {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 50px;
+
+    background-image: linear-gradient( 111.4deg,  rgba(7,7,9,1) 6.5%, rgba(27,24,113,1) 93.2% );
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+  z-index: 9999;
+}
+.logo {
+  
+    height:150px;
+    width:150px; 
+}
+nav a:not(:last-child) {
+    margin-right: 10px;
+}
+.search-form {
+    display: flex;
+    align-items: center;
+    margin-right: 100px;
+}
+.search-form input {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    
+}
+.search-form button {
+    padding: 5px 10px;
+    background-color: #0ed53a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+@media (max-width: 768px) {
+    .search-form {
+        margin-top: 10px;
+    }
+}
+.social-icons {
+    display: flex;
+    align-items: center;
+}
+
+.social-icon {
+    width: 30px; 
+    margin-right: 0%;
+}
+
+nav a {
+    position: relative;
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    z-index: 1;
+}
+
+nav span {
+    position: absolute;
+    top: 0;
+    left: 13%;
+    width: 80px;
+    height: 100%;
+    background-image: linear-gradient( 112.2deg,  rgba(86,223,223,1) 4.7%, rgba(2,28,186,1) 110.1% );
+    border-radius: 8px;
+    transition: left .5s ease, width .5s ease;
+}
+
+
+nav a:nth-child(2):hover~span {
+    left: 13.7%;
+    width: 80px;
+    
+    
+   
+}
+
+nav a:nth-child(3):hover~span {
+    left: 19.9%;
+    width: 80px;
+}
+
+nav a:nth-child(4):hover~span {
+    left: 26%;
+    width: 110px;
+}
+
+nav a:nth-child(5):hover~span {
+    left: 34%;
+    width: 110px;
+}
+
+nav a:nth-child(6):hover~span {
+    left: 45.8%;
+    width: 80px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.club-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+ 
+  
+    
+}
+.club {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.club-logo {
+    width: 120px; 
+    height: auto;
+    z-index: 0;
+}
+.match-status-box {
+    background-color: #ed3232; 
+    color: white; 
+    padding: 10px 15px; 
+    border-radius: 5px; 
+    margin-left: 40px;
+    text-align: center;
+    font-weight: 600; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.223);
+    align-items: center;
+    height: 40px;
+    width: 100px;
+
+}
+.score {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+    
+}
+.statistics-container {
+    background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 100%);
+    border: 2px solid #ccc;
+    margin-top: 25px;
+    margin-bottom: 0; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 600px;
+    margin-left: 320px;
+    
+}
+.statistics {
+    margin-top: 10px;
+    width: auto;
+}
+.statistics h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.statistic-category {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+.statistic-category p {
+    margin: 5px 0; 
+}
+
+
+.match-date {
+    font-size: 14px;
+    color: #8A8F98;
+    margin-top: 10px;
+    margin-left: 580px;
+    
+}
+.match-score {
+    margin-top: 21px;
+    display: flex;
+    align-items: center
+}
+.match-score-number {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+
+   
+}
+
+.team-name {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 600;
+}
+.match-score-divider{
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+
+}
